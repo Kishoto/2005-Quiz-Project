@@ -1,5 +1,7 @@
 Any changes made to the previous deliverables have been noted with bold, italicized text in the documentation. A short summary of all changes made are below: 
 
+Testing Git 1.0
+
 *The QuizResult interface was implemented more completely; functions perform described functions instead of simply being stubs. 
 *Sample data was provided using the QuizAttempt class; this is a sample class used to emulate the data format that would be received from Persist, based on the TakeQuiz module. 
 *Unit tests were modified to properly utilize the functions, as opposed to simply using the stubs as previously. 
