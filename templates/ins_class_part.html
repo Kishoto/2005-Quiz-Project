@@ -5,24 +5,25 @@
       {% if title %}
       <title>{{ title }} </title>
       {% else %}
-      <title>Not Working</title>
+      <title>Class Participation</title>
       {% endif %}
 </head>
 <body>
 
 <p><b>Class Participation</b></p>
-
+	
 <form method="post">
 <label>Enter Quiz Name Here:</label><input type = "text" name="quizname"><br>
 <input type = "submit" value= "submit" <br>
 </form>
 
-<p><b>Class Participation</b></p>
+<p><b>Stats</b></p>
 
 {% if call.grade %}
-Class - {{call.grade}}
+COMP 2005 - {{call.grade}} %
+
 {% else %}
-No Grade Input
+Invalid Quiz Name
 {% endif %}
 </body>
 </html>

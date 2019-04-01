@@ -225,29 +225,29 @@ class QuizResult:
                             stunames[att[0]] = att[6]
                         
 
-        temp = {'0 - 9':0,'10 - 19': 0,'20 - 29': 0,'30 - 39': 0,'40 - 49': 0,'50 - 59': 0,'60 - 69': 0,'70 - 79': 0,'80 - 89': 0,'90 - 100': 0}
+        temp = {'zero':0,'one': 0,'two': 0,'three': 0,'four': 0,'five': 0,'six': 0,'seven': 0,'eight': 0,'nine': 0}
 
         for grade in stunames.values():
             if grade >= 0 and grade < 10:
-                temp['0 - 9'] = temp['0 - 9']+1
+                temp['zero'] = temp['zero']+1
             if grade >= 10 and grade < 20:
-                temp['10 - 19'] = temp['10 - 19']+1
+                temp['one'] = temp['one']+1
             if grade >= 20 and grade < 30:
-                temp['20 - 29'] = temp['20 - 29']+1
+                temp['two'] = temp['two']+1
             if grade >= 30 and grade < 40:
-                temp['30 - 39'] = temp['30 - 39']+1
+                temp['three'] = temp['three']+1
             if grade >= 40 and grade < 50:
-                temp['40 - 49'] = temp['40 - 49']+1
+                temp['four'] = temp['four']+1
             if grade >= 50 and grade < 60:
-                temp['50 - 59'] = temp['50 - 59']+1
+                temp['five'] = temp['five']+1
             if grade >= 60 and grade < 70:
-                temp['60 - 69'] = temp['60 - 69']+1
+                temp['six'] = temp['six']+1
             if grade >= 70 and grade < 80:
-                temp['70 - 79'] = temp['70 - 79']+1
+                temp['seven'] = temp['seven']+1
             if grade >= 80 and grade < 90:
-                temp['80 - 89'] = temp['80 - 89']+1
+                temp['eight'] = temp['eight']+1
             if grade >= 90 and grade < 101:
-                temp['90 - 100'] = temp['90 - 100']+1
+                temp['nine'] = temp['nine']+1
 
         return temp
             
@@ -381,6 +381,6 @@ class QuizResult:
 test = QuizResult()
 test.add_quiz_attempts()
 test.get_grades()
-
+print(test.ins_class_part('Quiz4'))
 
         

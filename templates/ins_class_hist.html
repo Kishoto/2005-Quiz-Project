@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+table, th, td {
+  text-align: center;
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+
+</style>
+    <meta charset="UTF-8">
+      {% if title %}
+      <title>{{ title }} </title>
+      {% else %}
+      <title>Class Histogram</title>
+      {% endif %}
+</head>
+<body>
+
+<p><b>Class Histogram</b></p>
+<br>	
+<form method="post">
+<label>Enter Quiz Name Here:</label><input type = "text" name="quizname"><br>
+<input type = "submit" value= "submit" <br>
+</form>
+<br>
+<br>
+	{% if call %}
+    {% for item in call %}
+	<table style="width:30%">
+  <tr>
+    <th>Grade Section</th>
+    <th>Number of Students</th> 
+  </tr>
+  <tr>
+    <td>0 - 9:</td>
+    <td>{{ item.first.zero }}</td> 
+  </tr>
+  <tr>
+    <td>10 - 19:</td>
+    <td>{{ item.first.one }}</td> 
+  </tr>
+  <tr>
+    <td>20 - 29:</td>
+    <td>{{ item.first.two }}</td> 
+  </tr>
+  <tr>
+    <td>30 - 39:</td>
+    <td>{{ item.first.three }}</td> 
+  </tr>
+  <tr>
+    <td>40 - 49:</td>
+    <td>{{ item.first.four }}</td> 
+  </tr>
+  <tr>
+    <td>50 - 59:</td>
+    <td>{{ item.first.five }}</td> 
+  </tr>
+  <tr>
+    <td>60 - 69:</td>
+    <td>{{ item.first.six }}</td> 
+  </tr>
+  <tr>
+    <td>70 - 79:</td>
+    <td>{{ item.first.seven }}</td> 
+  </tr>
+  <tr>
+    <td>80 - 89:</td>
+    <td>{{ item.first.eight }}</td> 
+  </tr>
+  <tr>
+    <td>90 - 100:</td>
+    <td>{{ item.first.nine }}</td> 
+  </tr>
+</table>
+ 
+    {% endfor %}
+	{% endif %}
+
+</body>
+</html>

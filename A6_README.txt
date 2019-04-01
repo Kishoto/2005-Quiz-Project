@@ -1,6 +1,5 @@
 NOTE: PLEASE SEE THE CHANGES.TXT FILE FOR NOTES ABOUT CHANGES MADE TO THE DELIVERABLES SINCE ASSIGNMENT 5
 
-Testing Git 1.0
 
 Grading Criteria:
 1 - My team's sign off is a printed PDF of emails to Professor Ed Brown titled "Team Sign Off A6.pdf"
