@@ -9,8 +9,8 @@ class Persist:
         self._store["Quiz"] = {}
         self._store["studentAttempt"] = {}
         self._store["gradedAttempts"] = {}
-##        self._store["instructor"] = {}
-##        self._store["student"] = {}
+        self._store["instructor"] = {}
+        self._store["student"] = {}
         
 ##    def addInstructorAccount(self, email, password):
 ##        """add a created instructor account to the shelve"""
@@ -107,15 +107,7 @@ class Persist:
         self._store.sync()
         self._store.close()
 
-
-class Newuser:
-    def __init__(self, email, usertype, password):
-        self.email = email
-        self.usertype = usertype
-        self.password = password
-
-
 storage = Persist()
-#help(Persist)
+
 
 
