@@ -12,54 +12,27 @@ class Persist:
         self._store["instructor"] = {}
         self._store["student"] = {}
         
-##    def addInstructorAccount(self, email, password):
-##        """add a created instructor account to the shelve"""
-##        account = self._store["instructor"]
-##        account[email] = password
-##
-##        temp = []
-##        temp.append(email)
-##        self._store[email] = temp
-##
-##    def addStudentAccount(self, email, password):
-##        """add a created student account to the shelve"""
-##        account = self._store["student"]
-##        account[email] = password
-##
-##        temp = []
-##        temp.append(email)
-##        self._store[email] = temp
-##
-##    def getInstructorAccount(self, email,password):
-##        """return a dictionary of all the accounts"""
-##        account = self._store["instructor"]
-##        account[email] = password
-##        if email not in account:
-##            print("invalid email, please try again")
-##        else:
-##            return account[email]
-##
-##    def getStudentAccount(self, email,password):
-##        """return a dictionary of all the accounts"""
-##        account = self._store["student"]
-##        account[email] = password
-##        if email not in account:
-##            print("invalid email, please try again")
-##        else:
-##            return account[email]
-##
-##
-##    def delete(self, email):
-##        """delete a created account from shelve"""
-##        account1 = self._store["instructor"]
-##        account2 = self._store["student"]
-##        if email not in account1 or account2:
-##            print("invalid email, please try again")
-##        else:
-##            if email in account1:
-##                del account1[email]
-##            elif email in account2:
-##                del account2[email]
+    def addInstructorAccount(self,userID,password):
+        """add a created instructor account to the shelve"""
+        instructDict = self._store["instructor"]
+        instructDict[userID] = password
+        self._store["instructor"] = instructDict
+
+    def addStudentAccount(self, userID,password):
+        """add a created student account to the shelve"""
+        studentDict = self._store["student"]
+        studentDict[userID] = password
+        self._store["student"] = studentDict
+
+    def getInstructorAccount(self):
+        """return a dictionary of all the accounts"""
+        instructorAccount = self._store["instructor"]
+        return instructorAccount
+
+    def getStudentAccount(self):
+        """return a dictionary of all the accounts"""
+        studentAccount = self._store["student"]
+        return studentAccount
 
 
     def addQuiz(self, quiz_tup):

@@ -1,6 +1,5 @@
 import Persist
 
-
 """
 CLASS:
      Login_
@@ -19,7 +18,7 @@ class Login:
         userlogin() - user login method
     """
 
-    loginStorage = storage
+    loginStorage = Persist.storage
     def __init__(self, userType, userID, password):
         """
         initialize the class and indicates all the parameters
@@ -33,6 +32,7 @@ class Login:
         self._userType = userType
         self._userID = userID
         self._password = password
+        #self.stotage = Persist.Persist.getQuiz()
 
     def authentication(self,password):
         if len(password) < 8:
@@ -48,19 +48,15 @@ class Login:
             password: value of the key(email)
         """
         
-        if authentication(password):
+        if authentication(password) == True:
             
             if userType == "instructor":
-                instructorAccount = {}
                 if len(userID) > 0:
-                    instructorAccount[userID] = password
-                    Login.loginStorage.addInstructorAccount()
+                    Login.loginStorage.addInstructorAccount(userID,password)
 
             elif userType == "student":
-                studentAccount = {}
                 if len(userID) > 0:
-                    studentAccount[userID] = password
-                    Login.loginStorage.addStudentAccount()
+                    Login.loginStorage.addStudentAccount(userID, password)
             #print("Account has been created")
             return True
 
@@ -84,9 +80,9 @@ class Login:
                 if studentAccount[userID] == password:
                     return True
 
-        for userID in InstructorAccount:
+        for userID in instructorAccount:
             if userID == userKey:
-                if InstructorAccount[userID] == password:
+                if instructorAccount[userID] == password:
                     return True
                 
         return False
