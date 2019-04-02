@@ -298,14 +298,15 @@ class QuizResult:
 
         namehold = ''
         temp = 1
-        for i in range(len(stunames[studentname])):
-            if namehold != '':
-                if stunames[studentname][i][0] == namehold:
-                    temp = temp + 1
-                else:
-                    temp = 1            
-            out_list.append(stunames[studentname][i][0]+ " = Attempt " + str(temp) + " - " + str(stunames[studentname][i][1]))
-            namehold = stunames[studentname][i][0]
+        if studentname in stunames:
+            for i in range(len(stunames[studentname])):
+                if namehold != '':
+                    if stunames[studentname][i][0] == namehold:
+                        temp = temp + 1
+                    else:
+                        temp = 1            
+                out_list.append(stunames[studentname][i][0]+ " = Attempt " + str(temp) + " - " + str(stunames[studentname][i][1]))
+                namehold = stunames[studentname][i][0]
         return out_list
 
     def stu_quiz_grades(self,studentname):
@@ -330,14 +331,16 @@ class QuizResult:
 
         namehold = ''
         temp = 1
-        for i in range(len(stunames[studentname])):
-            if namehold != '':
-                if stunames[studentname][i][0] == namehold:
-                    temp = temp + 1
-                else:
-                    temp = 1            
-            out_list.append(stunames[studentname][i][0]+ " = Attempt " + str(temp) + " - " + str(stunames[studentname][i][1]))
-            namehold = stunames[studentname][i][0]
+
+        if studentname in stunames:
+            for i in range(len(stunames[studentname])):
+                if namehold != '':
+                    if stunames[studentname][i][0] == namehold:
+                        temp = temp + 1
+                    else:
+                        temp = 1            
+                out_list.append(stunames[studentname][i][0]+ " = Attempt " + str(temp) + " - " + str(stunames[studentname][i][1]))
+                namehold = stunames[studentname][i][0]
         return out_list
 
     def stu_quiz_detailed(self,studentname,quizname):
@@ -366,21 +369,22 @@ class QuizResult:
 
         namehold = ''
         temp = 1
-        for i in range(len(stunames[studentname])):
-            if quizname == stunames[studentname][i][0]:
-                if namehold != '':
-                    if stunames[studentname][i][0] == namehold:
-                        temp = temp + 1
-                    else:
-                        temp = 1            
-                out_list.append(stunames[studentname][i][0]+ " = Attempt " + str(temp) + " - " + str(stunames[studentname][i][1]))
-                namehold = stunames[studentname][i][0]
+        if studentname in stunames:
+            for i in range(len(stunames[studentname])):
+                if quizname == stunames[studentname][i][0]:
+                    if namehold != '':
+                        if stunames[studentname][i][0] == namehold:
+                            temp = temp + 1
+                        else:
+                            temp = 1            
+                    out_list.append(stunames[studentname][i][0]+ " = Attempt " + str(temp) + " - " + str(stunames[studentname][i][1]))
+                    namehold = stunames[studentname][i][0]
         return out_list
 
         
 test = QuizResult()
 test.add_quiz_attempts()
 test.get_grades()
-print(test.ins_class_part('Quiz4'))
+print(test.stu_quiz_detailed('Fume','Quiz1'))
 
         

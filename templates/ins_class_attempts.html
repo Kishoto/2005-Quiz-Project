@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+table, th, td {
+  text-align: center;
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+
+</style>
+    <meta charset="UTF-8">
+      {% if title %}
+      <title>{{ title }} </title>
+      {% else %}
+      <title>Class Attempts</title>
+      {% endif %}
+</head>
+<body>
+
+<p><b>Class Attempts</b></p>
+<br>
+
+{% if call|length >= 2 %}
+	
+<form method="post">
+<label>Enter Quiz Name Here:</label><input type = "text" name="quizname"><br>
+<input type = "submit" value= "submit" <br>
+</form>
+<br>
+<br>
+
+{% endif %}
+
+	{% if call|length < 2 %}
+    {% for item in call %}
+<table style="width:30%">
+  <tr>
+    <th>Attempt Breakdown - {{call|length}}</th>
+  </tr>
+  {% for i in range(item.first|length) %}
+  <tr>
+    <td>{{item.first[i]}}</td> 
+  </tr>
+  {% endfor %}
+</table>
+    {% endfor %}
+	{% endif %}
+
+</body>
+</html>
