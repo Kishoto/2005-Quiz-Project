@@ -26,6 +26,7 @@ class TakeQuiz:
         foundQuiz - the quiz selected by student to be taken
         createdQuiz - the createQuiz object that made the quiz
         presentAttempt - holds information of quiz answered by student
+        getFoundQuiz - return the current quiz being taken
 
     Public Methods:
         checkAccess() - verify if student has access to quiz
@@ -188,14 +189,18 @@ class TakeQuiz:
         """Gets the studentsQA stored in persist"""
         return TakeQuiz.persistStorage.getStudentQA()
 
+    def getFoundQuiz(self):
+        """Return the current quiz being taken"""
+        return self._foundQuiz
 
-def quizzesInStorage():
-    """Returns a list of all quizzes that the student can choose from"""
-    quizzes = storage.getQuiz()
-    quizzNames = []
-    for quiz in quizzes:
-        quizzNames.append(quiz)
-    return quizzNames
+
+##def quizzesInStorage():
+##    """Returns a list of all quizzes that the student can choose from"""
+##    quizzes = storage.getQuiz()
+##    quizzNames = []
+##    for quiz in quizzes:
+##        quizzNames.append(quiz)
+##    return quizzNames
 
     
     

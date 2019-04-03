@@ -198,7 +198,6 @@ class CreateQuiz():
         and ensure it persists"""
         #Quiz.storage.addQuiz((self,self.q))
         storage.addQuiz(self)
-        
 
 
 
@@ -211,74 +210,3 @@ class CreateQuiz():
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-##    def _setQuizName(self,name):
-##        """Set the quiz name"""
-##        self.q._setQuizName(name)
-##
-##    def _addQuestion(self,question,weight):
-##        """Add a question to quiz"""
-##        self.q._addQuestion(question,weight)
-##
-##    def _addChoices(self,*choice):
-##        """Add choice to quiz"""
-##        self.q._addChoices(*choice)
-##
-##    def _addAnswerKey(self,*ans):
-##        """Add answers for quiz"""
-##        self.q._addAnswerKey(*ans)
-##
-##    def getQuizName(self):
-##        """Get quiz name"""
-##        return self.q.getQuizName()
-##
-##    def getQuestion(self,index):
-##        """Get a quiz question"""
-##        self.q.getQuestion(index)
-##
-##    def getQuestions(self):
-##        """Get all quiz question"""
-##        return self.q.getQuestions()
-##
-##    def getChoice(self,index):
-##        """Get the quiz choice for index"""
-##        return self.q.getChoice(index)
-##
-##    def getChoices(self):
-##        """Get the all the quiz choices"""
-##        return self.q.getChoices()
-##
-##    def getAnswer(self,index):
-##        """Get a specific answer to a quiz question"""
-##        return self.q.getAnswer(index)
-##
-##    def getStartTime(self):
-##        """Get start time for the quiz"""
-##        return self.q.getStartTime()
-##
-##    def getEndTime(self):
-##        """Get end time for the quiz"""
-##        return self.q.getEndTime()
-##
-##    def getAnswers(self):
-##        """Get the quiz answers"""
-##        return self.q.getAnswers()
-##
-##    def getAttempts(self):
-##        """Get the quiz attempts"""
-##        return self.q.getAttempts()
-##
-##    def _removeQuestion(self,index):
-##        """Removes a question from the quiz"""
-##        self.q._removeQuestion(index)
