@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
-    <title>Question Creation</title>
+    <head>
+        <title>Question Creation</title>
+        <script src="{{url_for('static', filename='addAnswer.js')}}"></script>
+    </head>
+    
     <body>
         <h1>Add questions,answers and choices</h1>
         <br>
@@ -8,12 +12,12 @@
         <form>
             Question: <input type="text" size="15" name="question" value="">
             <br>
-            <br>
-            Answer: <input type="text" name="answer1" value="">
-            <br>
-            <br>
-            <input type="button" value="Add Answer">
-            <br>
         </form>
+        <div id="answerDiv">
+            <button onclick="addAnswer()" value="Add Answer">Add Answer</button> 
+        </div>
+        
+        
+            
     </body>
 </html>
