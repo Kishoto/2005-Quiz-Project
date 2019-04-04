@@ -2,22 +2,22 @@
 <html>
     <head>
         <title>Question Creation</title>
-        <script src="{{url_for('static', filename='addAnswer.js')}}"></script>
     </head>
     
     <body>
         <h1>Add questions,answers and choices</h1>
         <br>
-        <br>
         <form>
-            Question: <input type="text" size="15" name="question" value="">
+            Question: <input type="text" size="15" name="question" value=""> Weight: <input type="text" size="5" name="weight" value="">
             <br>
-        </form>
-        <div id="answerDiv">
-            <button onclick="addAnswer()" value="Add Answer">Add Answer</button> 
-        </div>
-        
-        
-            
+            <br>
+            Answer: <input type="text" size="15" name="answer" value="">
+            <button type="button" name="addAnswer">Add Answer</button>
+            <br>
+            <br>
+            Choices: <input type="text" name="choices" value="">
+            <br>
+            <input type="button" name="addQuestion" value="Add Question"> <input type="button" name="save" value="Save Button">
+        </form>      
     </body>
 </html>

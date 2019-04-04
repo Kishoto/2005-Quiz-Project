@@ -1,34 +1,31 @@
-from CreateQuiz import CreateQuiz
-
-from flask import Flask
+from CreateQuiz import *
+from datetime import *
+from flask import Flask,render_template,request,flash,url_for
 
 app = Flask(__name__) 
+quizobj = None
 
+@app.route('/',methods=['GET','POST'])
+def launchPage():
+    return render_template('setup_quiz.html')
 
-clientpage = """
-<!doctypehtml>
-<html>
-<h1>
-<title>Quiz Setup</title>
-Quiz Setup
-</h1>
-<body>
-<div class=setup>
-    <form>
-        Quiz name: <input type=text size="15" name="quizname" value=""><br>
-        <br>
-        Number of attempts: <input type=text size=10 name=attemps value=""><br>
-        <br>
-        Start Time: <input type=date namestime"><br>
-        <br>
-        End Time: <input type=date name=etime><br>
-        <br>
-        <button type =button>Create Quiz</button>
-    </form>
-</body>
-</html>
-""" 
-@app.route('/setupquiz')
-def quizSetup():
-    return clientpage
+@app.route('/restrictaccess',methods=['GET','POST'])
+def instanceQuiz():
+    quizname = request.form.get('quizName')
+    attempts = request.form.get('attempts')
+    stime = request.form.get('stime')
+    etime = request.form.get('etime')
+    quizobj = CreateQuiz(quizname,attempts,stime,etime)
+    
+    return render_template('restrict_access.html')
 
+@app.route('/ra',methods=['GET','POST'])
+def giveAccess():
+     
+
+@app.route('/addQuestion', methods=['GET','POST'])
+def creationPage():
+    return render_template('QuestionCreation.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)
