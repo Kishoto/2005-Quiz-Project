@@ -1,0 +1,32 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register page</title>
+    <link rel="stylesheet" type="text/css" href="../static/register_style.css">
+</head>
+<body>
+
+<div id="register_frame">
+    <form method="post">
+    <p>Register</p>
+    {% block content%}
+        <p><label class="label_input"> username:</label><input type = "text" name="username" class="text_field"/></p>
+        <p><label class="label_input">password:</label><input type = "password" name="password" class="text_field"/></p>
+        <p><label class="label_input">confirm:</label><input type = "password" name="confirm" class="text_field"/></p>
+
+        <div id="register_control">
+            <p> <button type="submit" id="register_button">Register</button></p>
+        </div>
+    {% endblock content %}
+        {% if message %}
+        <p style="color: red">{{ message }}</p>
+        {% endif %}
+
+    </form>
+
+</div>
+
+
+</body>
+</html>
+

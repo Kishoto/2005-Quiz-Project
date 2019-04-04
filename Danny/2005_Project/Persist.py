@@ -4,8 +4,8 @@ import datetime
 class Persist:
 
     classList = ["James", "Dave", "Vlad", "Tommy", "Fred", "Danny", "Julie", "Divine", "Clifford", "Fume", "Danny", "Samad"]
-    def __init__(self):
-        self._store = shelve.open("file.txt", writeback= True)
+    def __init__(self, filename):
+        self._store = shelve.open(filename, writeback= True)
         self._store["Quiz"] = {}
         self._store["studentAttempt"] = {}
         self._store["gradedAttempts"] = {}
@@ -80,7 +80,7 @@ class Persist:
         self._store.sync()
         self._store.close()
 
-storage = Persist()
+storage = Persist("file.txt")
 
 
 

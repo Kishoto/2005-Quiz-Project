@@ -28,11 +28,11 @@ class Login:
             password: value of the key(email)
 
         """
-        #self._store = Persist()
+
         self._userType = userType
         self._userID = userID
         self._password = password
-        #self.stotage = Persist.Persist.getQuiz()
+
 
     def authentication(self,password):
         if len(password) < 8:
@@ -48,21 +48,18 @@ class Login:
             password: value of the key(email)
         """
         
-        if authentication(password) == True:
-            
-            if userType == "instructor":
-                if len(userID) > 0:
-                    Login.loginStorage.addInstructorAccount(userID,password)
 
-            elif userType == "student":
-                if len(userID) > 0:
-                    Login.loginStorage.addStudentAccount(userID, password)
+            
+        if userType == "instructor":
+            if len(userID) > 0:
+                Login.loginStorage.addInstructorAccount(userID,password)
+
+        elif userType == "student":
+            if len(userID) > 0:
+                Login.loginStorage.addStudentAccount(userID, password)
             #print("Account has been created")
             return True
 
-        else:
-            #print("Password must be 8 characters long")
-            return False
 
 
     def userlogin (self, userKey, password):
@@ -86,6 +83,5 @@ class Login:
                     return True
                 
         return False
-
     
         
