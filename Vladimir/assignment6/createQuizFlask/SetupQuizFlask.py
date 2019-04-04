@@ -60,6 +60,7 @@ def newQuestion():
 
 @app.route('/newquiz',methods=['GET','POST'])
 def newQuiz():
+    quizobj._storeQuiz()
     return render_template('setup_quiz.html')
 
 
