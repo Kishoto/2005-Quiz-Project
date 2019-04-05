@@ -36,6 +36,11 @@ class Login:
 
 
     def authentication(self,password):
+        """
+        authenticate the account to see whether the password is valid or not
+        :param password: the password which the user input and set
+        :return: true if the password length is longer than 8 and return false if the length is less than 8
+        """
         if len(password) < 8:
             return False
 
@@ -47,6 +52,8 @@ class Login:
             userType: type of user account: instructor or student
             userID: user identity, also the key of the account dictionary
             password: value of the key(email)
+
+        :return: true if the account is been created successfully
         """
         
 
@@ -66,8 +73,11 @@ class Login:
         """
         This method is login method to check whether the userID is in persist or not and check whether the password
         is equal to what the user set
+        :parameter:
             userKey: The username which get from the persist
             password: The password which also get from the persist
+        :return:
+            return true if the user login successfully and return false if does not.
         """
         studentAccount = Login.loginStorage.getStudentAccount()
         instructorAccount = Login.loginStorage.getInstructorAccount()

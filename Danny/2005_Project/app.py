@@ -39,7 +39,8 @@ def student():
 
 @app.route('/instructor_Register/', methods=['GET', 'POST'])
 def insRegister():
-    """Instructor register page, after register store the data into Persist: {'instructor'} """
+    """Instructor register page, after register store the data into Persist: {'instructor'}
+     """
 
     if request.method == 'GET':
         return render_template('instructor_regist_form.html')
@@ -48,7 +49,6 @@ def insRegister():
         password = request.form.get('password')
         confirm = request.form.get('confirm')
         # Login.loginStorage.addInstructorAccount(username, password)
-
 
         if username is not None and password == confirm:
             Login.loginStorage.addInstructorAccount(username, password)
