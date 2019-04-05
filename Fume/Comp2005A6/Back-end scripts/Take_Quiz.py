@@ -53,14 +53,12 @@ class TakeQuiz:
         self._username = username
         self._selectTime = datetime.datetime.now()
         self._foundQuiz = TakeQuiz.persistStorage.getQuiz(quizName)
-##        self._quizTup = TakeQuiz.persistStorage.getQuiz(quizName)
-##        self._foundQuiz = self._quizTup[1]
-##        self._createdQuiz = self._quizTup[0]
         self._presentAttempt = QuizAttempt(username, self._foundQuiz)
         oldAttempt = TakeQuiz.resumeQuiz(username,quizName)
+        self.formerAttempt = False
         if oldAttempt is not None:
             self._presentAttempt = oldAttempt
-
+            self.formerAttempt = True
 
     def checkAccess(self):
         """
@@ -95,14 +93,20 @@ class TakeQuiz:
 
     def saveAnswer(self,index, answer):
         """Save student answer to a question in a response list."""
-##        if isinstance(index,str) or isinstance(index,int):
-##            raise TypeError
         self._presentAttempt.addResponse(index,answer)
         return self._presentAttempt
 
     def stopQuiz(self):
         """Saves current attempt for later completion; adds the incomplete quizAttempt to studentsQA dictionary."""
+        #Ensures the attempt about to be placed is set to incomplete
+        self._presentAttempt._complete = False
+        
         quizName = self._foundQuiz.getQuizName()
+        #If he already has an incomplete quiz do not store
+        if self._username in TakeQuiz.studentsQA and quizName in TakeQuiz.studentsQA[self._username]:
+            for attempt in TakeQuiz.studentsQA[self._username][quizName]:
+                if attempt.getComplete() == False:
+                    return
         if self._username in TakeQuiz.studentsQA:
             dictQuiz = TakeQuiz.studentsQA[self._username]
             if quizName in dictQuiz:
@@ -121,6 +125,7 @@ class TakeQuiz:
             dictQuiz[quizName] = quizAttempt
             
             TakeQuiz.studentsQA[self._username] = dictQuiz
+        TakeQuiz.store_studentsQA()
                 
     @classmethod
     def resumeQuiz(cls,name,quiz):
@@ -130,7 +135,8 @@ class TakeQuiz:
             if quiz in dictQuiz:
                 attempts = dictQuiz[quiz]
                 for attempt in attempts:
-                    if attempt.getComplete() == False: #is incomplete:
+                    if attempt.getComplete() == False:#is incomplete:
+                        #TakeQuiz.formerAttempt = True
                         return attempt                 #return incomplete attempt      
         
 
@@ -139,17 +145,20 @@ class TakeQuiz:
         Set the QuizAttempt status to True when submit button is pressed
         and store quiz attempt in dictionary.
         """
-        self._presentAttempt.completed()
         quizName = self._foundQuiz.getQuizName()
+        self._presentAttempt.completed()
         
         #Check student already exist
         if self._username in TakeQuiz.studentsQA:
             dictQuiz = TakeQuiz.studentsQA[self._username]
             #Check if quiz name already exists
             if quizName in dictQuiz:
+                #Get all attempts for that quiz
                 quizAttempt = dictQuiz[quizName]
-                quizAttempt.append(self._presentAttempt)
-                dictQuiz[quizName] = quizAttempt
+                
+                if self.formerAttempt == False:
+                    quizAttempt.append(self._presentAttempt)
+                    dictQuiz[quizName] = quizAttempt
             else:
                 quizAttempt = []
                 quizAttempt.append(self._presentAttempt)
@@ -192,6 +201,7 @@ class TakeQuiz:
     def getFoundQuiz(self):
         """Return the current quiz being taken"""
         return self._foundQuiz
+    
 
 
 ##def quizzesInStorage():
@@ -204,5 +214,6 @@ class TakeQuiz:
 
     
     
+#Document your getFoundQuiz method,store_studentsQA, getFoundQuiz
 
         

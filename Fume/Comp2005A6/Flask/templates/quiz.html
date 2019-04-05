@@ -13,7 +13,8 @@
     {% else %}
     <!-- Display Quiz quesiton and Quiz choices section -->
     <div>
-        <form action="done.html">
+        <form method="POST" action="done.html" >
+
             <!-- print out the questions -->
             {%for q in questions%}
                 <p>{{loop.index}}. {{q[0]}}</p>
@@ -22,45 +23,34 @@
                 <!-- print out the 4 options for each question -->
                 {% for choice in choiceList[loop.index-1] %}
                     {% set name = ["choice", outer_loop]|join() %}
-                    <input type= "radio" name= {{name}} value= {{choice}}> {{choice}}<br>
 
+                    <!-- If there is a former stopped attempt, mark the selcted answers so student can continue from his attempt -->
+                    {% if oldResponse|length > 0 %}
+                        {% if oldResponse[outer_loop-1] == choice %}
+                            <input type= "radio" name= '{{name}}' value= {{choice}} checked> {{choice}}<br>
+                        {% else %}
+                            <input type= "radio" name= '{{name}}' value= {{choice}}> {{choice}}<br>
+                        {% endif %}
+                    {% else %}
+                        <input type= "radio" name= '{{name}}' value= {{choice}}> {{choice}}<br>
+                    {% endif %}
+                
                 {% endfor %}
 
             {% endfor %}
             
             <br>
-            <input type="submit" value="Submit" />
-        </form>
+            <!-- When submit button is clicked send all radio-input values to done.html route -->
+            <input type="submit" name="button" value="Submit" />
+
+            <!-- When stop button is clicked send all radio-input values to done.html route -->
+            <input type="submit" name="button" value="Stop"  />
+         </form>
+
     </div>
     {% endif %}
-
-    <br>
-
-    <!--Display Button section -->
-    <div>
-        <!-- <form action="done.html">
-            <input type="submit" value="Submit" />
-            
-        </form> -->
-        <!-- <a href=”/your_flask_funtion”><input type=”submit” value=”call_flask_funtion”></a> -->
-    <br>
-        <form action="">
-            <input type="submit" value="Stop" />
-        </form>
-
-    </div>
     
     
-    <!-- <p>1. What is the full meaning of venv?</p>
-    <input type= "radio" name= "choices" value= "virtual environment"> Virtual environment
-    <br><input type= "radio" name= "choices" value= "virtual environment"> Virtual envy
-    <br><input type= "radio" name= "choices" value= "virtual environment"> Vimeo environment variable
-    <br><input type= "radio" name= "choices" value= "virtual environment"> Video environment
-    <br>
-    <br>
-    <a href = "done.html"> -->
-        <!-- <button > Submit </button> -->
-    </a>
 </body>
 
 </html>

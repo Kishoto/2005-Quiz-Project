@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html>
-<title>HTML Tutorial</title>
+<title>Done</title>
 
 <body>
+    {% if finished == True %}
+        <h1>Quiz submitted</h1>
 
-    <h1>Quiz submitted</h1>
+    {% else %}
+        <h1>Quiz paused:</h1>
+        <p> This has been saved for later completion</p>
+    {% endif %}
 
-    <!-- Display Button section -->
-    <div>
-        <form action="/">
-            <input type="submit" value="Select Quiz" />
-        </form>
+    <a href="/"> <button>Select Quiz</button></a>
+    
+    <a href="stop.html"> <button>Log Out</button> </a>
 
-        <br>
-
-        <form action="">
-                <input type="submit" value="Log Out" />
-        </form>
-
-    </div>
+    <p>{{jAttempts}}</p>
+    
+    {%for attempt in jAttempts%}
+        <p>{{attempt.getComplete()}}</p>
+    {% endfor %}
 </body>
 
 </html>

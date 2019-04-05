@@ -1,6 +1,6 @@
 import sys
 sys.path.append('C:/Users/omafu/OneDrive/Documents/GitHub/2005-Quiz-Project/Fume/Comp2005A6/Back-end scripts')
-from flask import Flask, render_template
+from flask import Flask, render_template, request, flash, redirect, url_for
 app = Flask(__name__)
 
 
@@ -41,15 +41,32 @@ def display_quizzes():
 
 @app.route('/quiz.html')
 def display_quiz():
-    return render_template('quiz.html', permission=activeQuiz.checkAccess(), name=quizContent[0], questions=quizContent[1], choiceList=quizContent[2])
+    #Check to see if there is a present incomplete quiz by this student.
+    activeQuiz = TakeQuiz("James","Process Model")
+    incompleteQuiz = TakeQuiz.resumeQuiz("James","Process Model")
+    oldResponse = []
+    if incompleteQuiz is not None:
+        oldResponse = incompleteQuiz.getResponse()
+    return render_template('quiz.html', permission=activeQuiz.checkAccess(), oldResponse=oldResponse, name=quizContent[0], questions=quizContent[1], choiceList=quizContent[2])
 
-@app.route('/done.html')
+#Receives a post request from quiz.html: Saves all inputs received from the submission 
+@app.route('/done.html', methods=['GET', 'POST'])
 def display_done():
-##    for i in range(len(activeQuiz.getFoundQuiz().getQuestions())):
-##        activeQuiz.saveAnswer(i,)
-        
-    #activeQuiz.saveAnswer()
-    return render_template('done.html')
+    finished = False
+    if request.method == 'POST':
+        for i in range(len(activeQuiz.getFoundQuiz().getQuestions())):
+            choiceName = "choice"+str(i+1)
+            answer = request.form.get(choiceName)
+            savedAttempt = activeQuiz.saveAnswer(i,answer)
+        action = request.form.get('button')
+        if action == 'Submit':
+            activeQuiz.submitQuiz()
+            finished = True
+        elif action == 'Stop':
+            activeQuiz.stopQuiz()
+            #activeQuiz._presentAttempt
+        jAttempts = TakeQuiz.studentsQA["James"]["Process Model"]
+        return render_template('done.html', jAttempts=jAttempts, finished=finished)
 
 
 if __name__ == '__main__':
