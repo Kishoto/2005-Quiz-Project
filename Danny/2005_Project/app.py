@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template, request, flash, redirect, url_for
+from flask import Flask, render_template, request, flash, redirect, url_for, session
 from login import *
 import os
 
@@ -45,13 +45,13 @@ def insRegister():
     if request.method == 'GET':
         return render_template('instructor_regist_form.html')
     if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
-        confirm = request.form.get('confirm')
+        session['username'] = request.form['username']
+        session['password'] = request.form['password']
+        session['confirm'] = request.form['confirm']
         # Login.loginStorage.addInstructorAccount(username, password)
 
-        if username is not None and password == confirm:
-            Login.loginStorage.addInstructorAccount(username, password)
+        if session['username'] is not None and session['password'] == session['confirm']:
+            Login.loginStorage.addInstructorAccount(session['username'], session['password'])
             return redirect(url_for('instructor_login'))
             
         return render_template('instructor_regist_form.html', message = 'Invalid username or password')
@@ -62,13 +62,13 @@ def stuRegister():
     if request.method =='GET':
         return render_template('student_regist_form.html')
     if request.method =='POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
-        confirm = request.form.get('confirm')
+        session['username'] = request.form['username']
+        session['password'] = request.form['password']
+        session['confirm'] = request.form['confirm']
         # Login.loginStorage.addStudentAccount(username,password)
 
-        if username is not None and password == confirm:
-            Login.loginStorage.addStudentAccount(username,password)
+        if session['username'] is not None and session['password'] == session['confirm']:
+            Login.loginStorage.addStudentAccount(session['username'], session['password'])
             return redirect(url_for('stu_login'))
 
         return render_template('student_regist_form.html', message = 'Invalid username or password')
@@ -84,22 +84,22 @@ def stu_login():
     if request.method == 'POST':
 
 
-        username = request.form.get('username')
-        password = request.form.get('password')
+        session['username'] = request.form['username']
+        session['password'] = request.form['password']
 
 
-        if not all([username,password]):
+        if not all([session['username'], session['password']]):
             flash('imcomplete')
 
         for user in studentAccount:
             # the situation that username exist in the persist and the password should also be in the persist and conform to what user set.
-            if username == user and password == studentAccount[user]:
+            if session['username'] == user and session['password'] == studentAccount[user]:
                 return redirect(url_for('quiz'))
             # the situation that the username is not in the persist
-            elif username != user:
+            elif session['username'] != user:
                 return render_template('student_login.html', message = 'Account is not exist, Please register first')
             # the situation that the password is not what user set
-            elif password != studentAccount[user]:
+            elif session['password'] != studentAccount[user]:
                 return render_template('student_login.html', message = 'Input the wrong password')
         else:
             return render_template('student_login.html', message = 'Account is not exist, Please register first')
@@ -114,26 +114,29 @@ def instructor_login():
 
     if request.method == 'POST':
 
-        username = request.form.get('username')
-        password = request.form.get('password')
+        session['username'] = request.form.get('username')
+        session['password'] = request.form.get('password')
 
-        if not all([username,password]):
+        if not all([session['username'],session['password']]):
             flash('imcomplete')
                                                                                                                   
         for instruct_user in instructorAccount:
             # the situation that username exist in the persist and the password should also be in the persist and conform to what user set.
-            if username == instruct_user and password == instructorAccount[instruct_user]:
+            if session['username'] == instruct_user and session['password'] == instructorAccount[instruct_user]:
                 return redirect(url_for('createQuiz'))
             # the situation that the username is not in the persist
-            elif username != instruct_user:
+            elif session['username'] != instruct_user:
                 return render_template('instructor_login.html', message = 'Account is not exist, Please register first')
             # the situation that the password is not what user set
-            elif password != instructorAccount[instruct_user]:
+            elif session['password'] != instructorAccount[instruct_user]:
                 return render_template('instructor_login.html', message = 'Input the wrong password')
         else:
             return render_template('instructor_login.html', message = 'Account is not exist, Please register first')
 
-
+@app.route('/logout')
+def logout():
+    session.clear
+    return redirect(url_for('base'))
 
 @app.route('/takequiz')
 def quiz():
