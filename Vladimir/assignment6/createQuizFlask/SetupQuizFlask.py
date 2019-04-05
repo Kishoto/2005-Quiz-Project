@@ -4,9 +4,6 @@ from flask import Flask,render_template,request,flash,url_for
 
 app = Flask(__name__) 
 
-#These are abritrary values to initialize the object
-quizobj = CreateQuiz("PlaceHolderName","2","2019,3,30","2019,3,32")
-
 #Initializes ansList so it can be used when the instructor
 #Adds more than one answer
 ansList = []
@@ -16,20 +13,18 @@ def launchPage():
 
 @app.route('/restrictaccess',methods=['GET','POST'])
 def instanceQuiz():
+    global quizObj
     quizname = request.form.get('quizName')
     attempts = request.form.get('attempts')
     stime = request.form.get('stime')
     etime = request.form.get('etime')
-    quizobj._setQuizName(quizname)
-    quizobj._setAttempts(attempts)
-    quizobj._setStartTime(stime)
-    quizobj._setEndTime(etime)
+    quizObj = CreateQuiz(quizname,attempts,stime,etime)
 
     return render_template('restrict_access.html')
 
 @app.route('/ra',methods=['GET','POST'])
 def giveAccess():
-    quizobj._giveAccess(request.form.get('studentName'))
+    quizObj._giveAccess(request.form.get('studentName'))
     return render_template('restrict_access.html')
 
 @app.route('/addQuestion', methods=['GET','POST'])
@@ -52,15 +47,15 @@ def newQuestion():
     choices = request.form.get('choices')
     choiceList = choices.split(",")
 
-    quizobj._addQuestion(question,weight)
-    quizobj._addChoices(choiceList)
-    quizobj._addAnswerKey(ansList)
+    quizObj._addQuestion(question,weight)
+    quizObj._addChoices(choiceList)
+    quizObj._addAnswerKey(ansList)
 
     return render_template('QuestionCreation.html')
 
 @app.route('/newquiz',methods=['GET','POST'])
 def newQuiz():
-    quizobj._storeQuiz()
+    quizObj._storeQuiz()
     return render_template('setup_quiz.html')
 
 
