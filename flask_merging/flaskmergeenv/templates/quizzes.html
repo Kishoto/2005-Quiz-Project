@@ -11,11 +11,13 @@
     {% endif %}
 
     <!-- printing all the available quizzes  -->
-    {%for name in quizNames%}
-        <!-- {% set page = ["quiz", loop.index, ".html"]|join()  %} -->
-        <p>Quiz {{loop.index}} : <a href="quiz.html" id="{{name}}"> {{name}} </a> </p>
-    {% endfor %}
-
+    <form method="POST" action="quiz.html">
+        {%for name in quizNames%}
+            <!-- {% set page = ["quiz", loop.index, ".html"]|join()  %} -->
+            <!-- <p>Quiz {{loop.index}} : <a href="quiz.html" id="{{name}}"> {{name}} </a> </p> -->
+            <input type= "radio" name= '{{name}}' value= {{choice}}> Quiz {{loop.index}}: {{choice}}<br>
+        {% endfor %}
+    </form>
     
 
 </body>
