@@ -56,11 +56,13 @@ class QuizResult:
     attempt1 = QuizAttempt(1)
     attempt2 = QuizAttempt(2)
     
-    sample_quiz_dict = {'Fume' : { 'Quiz1': [attempt1, attempt2], 'Quiz2': [attempt1]}, 'Vlad' : { 'Quiz1': [attempt1, attempt2], 'Quiz2': [attempt1]}}
+    ###sample_quiz_dict = {'Fume' : { 'Quiz1': [attempt1, attempt2], 'Quiz2': [attempt1]}, 'Vlad' : { 'Quiz1': [attempt1, attempt2], 'Quiz2': [attempt1]}}
 
 
-    ###QR_PER = storage
-    ###sample_quiz_dict = storage.getStudentQA()
+    QR_PER = storage
+    QR_PER.addAllStudentQA({'Fume' : { 'Quiz1': [attempt1, attempt2], 'Quiz2': [attempt1]}, 'Vlad' : { 'Quiz1': [attempt1, attempt2], 'Quiz2': [attempt1]}})
+
+    sample_quiz_dict = storage.getStudentQA()
 
 
 
@@ -93,8 +95,8 @@ class QuizResult:
 
 
         """
-        ##self.input_dict = self.QR_PER.getStudentQA()
-        self.input_dict = self.sample_quiz_dict  ##Sample data of the format we'd be pulling from Persist
+        self.input_dict = self.QR_PER.getStudentQA()
+        ###self.input_dict = self.sample_quiz_dict  ##Sample data of the format we'd be pulling from Persist
         for stuname, quizinfo in self.input_dict.items():
             for quizname, attempt in quizinfo.items():
                 for i in range(len(attempt)):
@@ -161,8 +163,8 @@ class QuizResult:
         """
 
         
-        ###size = float(len(QR_PER.classList))
-        size = float(2)  #A temp variable to work with the sample data. 
+        size = float(len(QR_PER.classList))
+        ###size = float(2)  #A temp variable to work with the sample data. 
         part = float(0)
         stunames = {}
 
@@ -348,7 +350,7 @@ class QuizResult:
 
 
         Params:
-        studentname - Name of the given student
+        studentname - Name of the given student 
         quizname - Name of the given quiz
 
         Returns: A list of strings; formatted to show the given student's grades on a given quiz. 
@@ -382,9 +384,8 @@ class QuizResult:
         return out_list
 
         
-test = QuizResult()
-test.add_quiz_attempts()
-test.get_grades()
-print(test.stu_quiz_detailed('Fume','Quiz1'))
-
+##test = QuizResult()
+##test.add_quiz_attempts()
+##test.get_grades()
+##print(test.stu_quiz_detailed('Fume','Quiz1'))
         

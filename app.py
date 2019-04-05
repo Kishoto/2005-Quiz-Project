@@ -6,6 +6,8 @@ app = Flask(__name__)
 app.secret_key = 'secret'
 
 obj = QuizResult()
+obj.add_quiz_attempts()
+obj.get_grades()
 
 quizname = ''
 
