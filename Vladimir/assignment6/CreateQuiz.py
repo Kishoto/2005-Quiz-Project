@@ -3,23 +3,33 @@ from datetime import *
 import copy
 
 class CreateQuiz():
-    """This module allows an instructor to create a quiz
-    such as set the name of the quiz, set the number of
-    attempts, the start and end times of the quiz.
-
-    This module also allows the instructor to restrict 
-    and give access to students for a quiz
-    add and remove questions and add choices and 
-    answers to a quiz
+    """Allows the instructor to create a quiz
+    And control the name, number of attempts,
+    start and end date
     
-    Params:
-    quiz_name - the name of the quiz 
-    attempts - the number of attempts alloted for the quiz
-    start_time - the start time for the quiz in datetime 
-    end_time - the end time for the quiz in datetime
+    quiz_name - the name of the quiz
+    attempts - the number of attempts of a quiz
+    start_time - the start date of a quiz
+    end_time - the end date of a quiz
     
-    Returns:
-    None"""
+    qustion_bank - the bank of questions and their weights for a quiz
+    question = [question,weight]
+    
+    answer_key - the bank of answers stored fora quiz
+    there can be multiple answers
+    
+    accessList - a list of names of students for a quiz
+    
+    Public Methods:
+    
+    getQuizName() - returns the quiz name for a  quiz
+    getQuestion() - returns a specific question for a quiz
+    getQuestions() - returns the questions for a quiz
+    getChoice() - returns a specific choice for a quiz
+    getAnswer() - returns a specific answer key for a quiz
+    getAttempts() - returns the number of attempts
+    getWeight() - returns the weight of a quiz
+    checkAccess() - returns a list of students that can access a quiz"""
 
     def __init__(self,quiz_name,attempts,start_time,end_time):
         self.name = quiz_name
