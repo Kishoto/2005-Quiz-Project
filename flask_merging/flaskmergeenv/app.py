@@ -2,6 +2,7 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
 from login import *
 from CreateQuiz import *
+from Take_Quiz import *
 
 import os
 ansList = []
@@ -135,12 +136,7 @@ def instructor_login():
         else:
             return render_template('instructor_login.html', message = 'Account is not exist, Please register first')
 
-
-
-@app.route('/takequiz')
-def quiz():
-    return render_template('quizzes.html')
-
+#Create Quiz
 @app.route('/createquiz')
 def createQuiz():
     return render_template('setup_quiz.html')
@@ -191,6 +187,67 @@ def newQuestion():
 def newQuiz():
     quizObj._storeQuiz()
     return render_template('setup_quiz.html')
+
+#Take Quiz
+@app.route('/takequiz')
+def quiz():
+    quizes = TakeQuiz.persistStorage.getQuiz()
+    quizNames = []
+    for quiz in quizes:
+        quizNames.append(quiz)
+
+    return render_template('quizzes.html', quizNames=quizNames)
+
+@app.route('/quiz.html',methods=['GET','POST'])
+def display_quiz():
+    #Check to see if there is a present incomplete quiz by this student.
+    global activeQuiz
+    studentName = request.form.get('username')
+    quizName = 
+    activeQuiz = TakeQuiz("James","Process Model")
+    quizContent = activeQuiz.getQuizContent()
+
+    #Setting the attempt display number
+    global attemptNum
+    if activeQuiz.numberOfAttempts() == 0:
+        attemptNum = 1
+    elif activeQuiz.numberOfAttempts() == activeQuiz.getFoundQuiz().getAttempts():
+        attemptNum = activeQuiz.numberOfAttempts()
+    elif activeQuiz.numberOfAttempts() > 0 and TakeQuiz.studentsQA["James"]["Process Model"][-1].getComplete() == True:
+        attemptNum = activeQuiz.numberOfAttempts() + 1
+        
+    #For Debugging
+    newAttempt = activeQuiz._presentAttempt
+    #
+    
+    incompleteQuiz = TakeQuiz.resumeQuiz("James","Process Model")
+    oldResponse = []
+    if incompleteQuiz is not None:
+        oldResponse = incompleteQuiz.getResponse()
+    return render_template('quiz.html', newAttempt=newAttempt,permission=activeQuiz.checkAccess(), attemptNum=attemptNum, oldResponse=oldResponse, name=quizContent[0], questions=quizContent[1], choiceList=quizContent[2])
+
+
+
+#Receives a post request from quiz.html: Saves all inputs received from the submission 
+@app.route('/done.html', methods=['GET', 'POST'])
+def display_done():
+    finished = False
+    if request.method == 'POST':
+        for i in range(len(activeQuiz.getFoundQuiz().getQuestions())):
+            choiceName = "choice"+str(i+1)
+            answer = request.form.get(choiceName)
+            savedAttempt = activeQuiz.saveAnswer(i,answer)
+        action = request.form.get('button')
+        if action == 'Submit':
+            activeQuiz.submitQuiz()
+            finished = True
+        elif action == 'Stop':
+            activeQuiz.stopQuiz()
+        jAttempts = TakeQuiz.studentsQA["James"]["Process Model"]
+        return render_template('done.html', jAttempts=jAttempts, finished=finished)
+
+
+
 
 
 

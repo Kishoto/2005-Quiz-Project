@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<title>Done</title>
+
+<body>
+    {% if finished == True %}
+        <h1>Quiz submitted</h1>
+
+    {% else %}
+        <h1>Quiz paused:</h1>
+        <p> This has been saved for later completion</p>
+    {% endif %}
+
+    <a href="/"> <button>Select Quiz</button></a>
+    
+    <a href="stop.html"> <button>Log Out</button> </a>
+
+    <p>{{jAttempts}}</p>
+    
+    {%for attempt in jAttempts%}
+        <p>{{attempt.getComplete()}}</p>
+    {% endfor %}
+</body>
+
+</html>
