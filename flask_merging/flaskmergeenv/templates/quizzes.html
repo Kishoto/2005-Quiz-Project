@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<title>Quizzes</title>
+
+<body>
+
+    <h1>Quizzes</h1>
+    <!-- checking the length of the varible quizNames -->
+    {%if quizNames|length == 0 %}
+        <h1>There are no quizzes available at the moment.</h1>
+    {% endif %}
+
+    <!-- printing all the available quizzes  -->
+    {%for name in quizNames%}
+        <!-- {% set page = ["quiz", loop.index, ".html"]|join()  %} -->
+        <p>Quiz {{loop.index}} : <a href="quiz.html"> {{name}} </a> </p>
+    {% endfor %}
+
+
+
+</body>
+
+</html>
