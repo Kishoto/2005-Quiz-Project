@@ -96,7 +96,14 @@ class TakeQuiz:
 
 
     def saveAnswer(self,index, answer):
-        """Save student answer to a question in a response list."""
+        """
+        Save student answer to a question in a response list.
+
+        Params:
+            index - the index where the answer should stored
+            answer - the answer student selected in question
+
+        """
         self._presentAttempt.addResponse(index,answer)
         return self._presentAttempt
 
@@ -133,7 +140,13 @@ class TakeQuiz:
                 
     @classmethod
     def resumeQuiz(cls,name,quiz):
-        """Return incomplete Quiz attempt."""
+        """
+        Return incomplete Quiz attempt.
+
+        Params:
+            name - name of the student
+            quiz - name of thae quiz he wants to take
+        """
         if name in TakeQuiz.studentsQA:
             dictQuiz = TakeQuiz.studentsQA[name]
             if quiz in dictQuiz:
