@@ -18,6 +18,9 @@ class TakeQuiz:
 
     Class Methods:
         resumeQuiz(name, quiz) - returns an incomplete quiz attempt if found.
+        store_studentsQA() - calls persist method to store studentsQA dictionary in shelve
+        get_studentsQA - get stored studentsQA dictionary from persist
+        
 
     Instance Variables:
         username: - student's unique userID
@@ -26,10 +29,11 @@ class TakeQuiz:
         foundQuiz - the quiz selected by student to be taken
         createdQuiz - the createQuiz object that made the quiz
         presentAttempt - holds information of quiz answered by student
-        getFoundQuiz - return the current quiz being taken
+        formerAttempt - indicates True or False if the student is continuing from his last attempt
 
     Public Methods:
         checkAccess() - verify if student has access to quiz
+        getFoundQuiz() - returns the quiz object that the sudent is currently taking
         getQuizContent() - return the quiz content(quizName,question, and choices)
         saveAnswer() - saves student answer to a question
         stopQuiz() - stop and save incomplete quiz attempt for later completion 
@@ -72,7 +76,7 @@ class TakeQuiz:
         if self._username in self._foundQuiz.accessList:
             permitted = True
         
-        if(self.numberOfAttempts() >= self._foundQuiz.getAttempts()):
+        if(self.numberOfAttempts() >= self._foundQuiz.getAttempts() and TakeQuiz.studentsQA[self._username][self._foundQuiz.getQuizName()][-1].getComplete() == True):
            exceededAttempt = True
 
         if(self._selectTime > self._foundQuiz.getEndTime()):
@@ -195,25 +199,11 @@ class TakeQuiz:
         
     @classmethod
     def get_studentsQA(cls):
-        """Gets the studentsQA stored in persist"""
+        """Gets the studentsQA stored in persist and returns it"""
         return TakeQuiz.persistStorage.getStudentQA()
 
     def getFoundQuiz(self):
         """Return the current quiz being taken"""
         return self._foundQuiz
-    
-
-
-##def quizzesInStorage():
-##    """Returns a list of all quizzes that the student can choose from"""
-##    quizzes = storage.getQuiz()
-##    quizzNames = []
-##    for quiz in quizzes:
-##        quizzNames.append(quiz)
-##    return quizzNames
-
-    
-    
-#Document your getFoundQuiz method,store_studentsQA, getFoundQuiz
 
         

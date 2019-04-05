@@ -31,9 +31,6 @@ quizNames = []
 for quiz in quizes:
     quizNames.append(quiz)
 
-#Call this when student selects a quiz
-activeQuiz = TakeQuiz("James","Process Model")
-quizContent = activeQuiz.getQuizContent()
 
 @app.route('/')
 def display_quizzes():
@@ -42,12 +39,30 @@ def display_quizzes():
 @app.route('/quiz.html')
 def display_quiz():
     #Check to see if there is a present incomplete quiz by this student.
+    global activeQuiz
     activeQuiz = TakeQuiz("James","Process Model")
+    quizContent = activeQuiz.getQuizContent()
+
+    #Setting the attempt display number
+    global attemptNum
+    if activeQuiz.numberOfAttempts() == 0:
+        attemptNum = 1
+    elif activeQuiz.numberOfAttempts() == activeQuiz.getFoundQuiz().getAttempts():
+        attemptNum = activeQuiz.numberOfAttempts()
+    elif activeQuiz.numberOfAttempts() > 0 and TakeQuiz.studentsQA["James"]["Process Model"][-1].getComplete() == True:
+        attemptNum = activeQuiz.numberOfAttempts() + 1
+        
+    #For Debugging
+    newAttempt = activeQuiz._presentAttempt
+    #
+    
     incompleteQuiz = TakeQuiz.resumeQuiz("James","Process Model")
     oldResponse = []
     if incompleteQuiz is not None:
         oldResponse = incompleteQuiz.getResponse()
-    return render_template('quiz.html', permission=activeQuiz.checkAccess(), oldResponse=oldResponse, name=quizContent[0], questions=quizContent[1], choiceList=quizContent[2])
+    return render_template('quiz.html', newAttempt=newAttempt,permission=activeQuiz.checkAccess(), attemptNum=attemptNum, oldResponse=oldResponse, name=quizContent[0], questions=quizContent[1], choiceList=quizContent[2])
+
+
 
 #Receives a post request from quiz.html: Saves all inputs received from the submission 
 @app.route('/done.html', methods=['GET', 'POST'])
@@ -64,7 +79,6 @@ def display_done():
             finished = True
         elif action == 'Stop':
             activeQuiz.stopQuiz()
-            #activeQuiz._presentAttempt
         jAttempts = TakeQuiz.studentsQA["James"]["Process Model"]
         return render_template('done.html', jAttempts=jAttempts, finished=finished)
 

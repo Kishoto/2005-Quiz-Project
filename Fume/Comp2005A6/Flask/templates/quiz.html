@@ -6,7 +6,7 @@
 
     <!-- Main header to display Quiz name -->
     <h1>Quiz 1:{{name}}</h1>
-
+    <h1>Attempt {{attemptNum}}</h1>
     <!-- Check if user can take the quiz -->
     {% if permission == False %}
         <h1>You are not allowed to take this quiz</h1>
@@ -45,10 +45,16 @@
 
             <!-- When stop button is clicked send all radio-input values to done.html route -->
             <input type="submit" name="button" value="Stop"  />
-         </form>
+        </form>
 
+        <br>
+        <br>
+        <p>Present Attempt: {{newAttempt}}</p>
+        
     </div>
     {% endif %}
+
+    
     
     
 </body>
