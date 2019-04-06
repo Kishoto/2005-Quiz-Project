@@ -1,7 +1,6 @@
 
 from flask import Flask, render_template, request, flash, redirect, url_for
 from login import *
-from datetime import datetime
 from CreateQuiz import *
 from Take_Quiz import *
 
@@ -149,10 +148,7 @@ def instanceQuiz():
     attempts = request.form.get('attempts')
     stime = request.form.get('stime')
     etime = request.form.get('etime')
-    startTime = datetime.datetime.strptime(stime,'%Y-%m-%d')
-    endTime = datetime.datetime.strptime(etime,'%Y-%m-%d')
-
-    quizObj = CreateQuiz(quizname,int(attempts),startTime,endTime)
+    quizObj = CreateQuiz(quizname,attempts,stime,etime)
 
     return render_template('restrict_access.html')
 
@@ -207,8 +203,8 @@ def display_quiz():
     #Check to see if there is a present incomplete quiz by this student.
     global activeQuiz
     studentName = request.form.get('username')
-    quizName = request.form.get('quiz')
-    activeQuiz = TakeQuiz(studentName,quizName)
+    quizName = 
+    activeQuiz = TakeQuiz("James","Process Model")
     quizContent = activeQuiz.getQuizContent()
 
     #Setting the attempt display number
@@ -217,7 +213,7 @@ def display_quiz():
         attemptNum = 1
     elif activeQuiz.numberOfAttempts() == activeQuiz.getFoundQuiz().getAttempts():
         attemptNum = activeQuiz.numberOfAttempts()
-    elif activeQuiz.numberOfAttempts() > 0 and TakeQuiz.studentsQA[studentName][quizName][-1].getComplete() == True:
+    elif activeQuiz.numberOfAttempts() > 0 and TakeQuiz.studentsQA["James"]["Process Model"][-1].getComplete() == True:
         attemptNum = activeQuiz.numberOfAttempts() + 1
         
     #For Debugging

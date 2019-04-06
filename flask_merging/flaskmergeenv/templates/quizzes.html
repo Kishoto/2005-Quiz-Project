@@ -8,17 +8,17 @@
     <!-- checking the length of the varible quizNames -->
     {%if quizNames|length == 0 %}
         <h1>There are no quizzes available at the moment.</h1>
-    {% else %}
-         <!-- printing all the available quizzes  -->
-         <form method="POST" action="quiz.html">
-             {%for name in quizNames%}
-             <!-- {% set page = ["quiz", loop.index, ".html"]|join()  %} -->
-             <!-- <p>Quiz {{loop.index}} : <a href="quiz.html" id="{{name}}"> {{name}} </a> </p> -->
-                <input type= "radio" name="quiz" value="{{name}}"> Quiz {{loop.index}}: {{name}}<br>
-            {% endfor %}
-        <input type="submit" value="Take Quiz">
+    {% endif %}
+
+    <!-- printing all the available quizzes  -->
+    <form method="POST" action="quiz.html">
+        {%for name in quizNames%}
+            <!-- {% set page = ["quiz", loop.index, ".html"]|join()  %} -->
+            <!-- <p>Quiz {{loop.index}} : <a href="quiz.html" id="{{name}}"> {{name}} </a> </p> -->
+            <input type= "radio" name= '{{name}}' value= {{choice}}> Quiz {{loop.index}}: {{choice}}<br>
+        {% endfor %}
     </form>
-    {% endif %}    
+    
 
 </body>
 
