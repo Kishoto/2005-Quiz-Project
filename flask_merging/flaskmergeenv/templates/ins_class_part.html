@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+      {% if title %}
+      <title>{{ title }} </title>
+      {% else %}
+      <title>Class Participation</title>
+      {% endif %}
+</head>
+<body>
+
+<p><b>Class Participation</b></p>
+	
+<form method="post">
+<label>Enter Quiz Name Here:</label><input type = "text" name="quizname"><br>
+<input type = "submit" value= "submit" <br>
+</form>
+
+<p><b>Stats</b></p>
+
+{% if call.grade %}
+
+COMP 2005 - {{call.grade}} %
+
+{% else %}
+No Quiz Entered or Invalid Quiz Name 
+{% endif %}
+</body>
+</html>
