@@ -1,0 +1,32 @@
+<!DOCTYPE html> 
+<htmml lang="en">
+    <h1>
+        <meta charset="UTF-8">
+        <title>Quiz Setup</title>
+        Quiz Setup
+    </h1>
+<body>
+
+    <form method="POST" action="http://127.0.0.1:5000/restrictaccess">
+        Quiz Name: <input type="text" name="quizName" value="">
+        <br><br>
+        Number of attempts: <input type="text" name="attempts" value="">
+        <br><br>
+        Start time: <input type="date" name="stime" value="">
+        <br><br>
+        End time: <input type="date" name="etime" value="">
+        <br><br>
+        <input type="submit" name="createQuiz" value="Create Quiz">
+    </form>
+    <a href="http://127.0.0.1:5000/"><button>Logout</button></a>
+</body>
+
+		
+	<b>View Quiz Results</b><br>
+	<a href="ins_class_part">View Class Participation for a Quiz</a><br>
+	<a href="ins_class_hist">View Class Histogram for a Quiz</a><br>
+	<a href="ins_class_attempts">View Class Attempts for a Quiz</a><br>
+	<a href="ins_student_grades">View Student's Grade for a Quiz</a><br>
+	
+
+</htmml>

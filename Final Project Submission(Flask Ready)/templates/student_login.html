@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login page</title>
+    <link rel="stylesheet" type="text/css" href="../static/login_style.css">
+</head>
+<body>
+{% block main %}
+<div id="login_frame">
+    <p>Login</p>
+    <form method="post">
+        <p><label class="label_input">username:</label><input type = "text" name="username" class="text_field"/></p>
+        <p><label class="label_input">password:</label><input type = "password" name="password" class="text_field"/></p>
+
+        <div id="login_control">
+           <p> <button type="submit" id="login_button">Login</button></p>
+        </div>
+
+        {% if message %}
+        <p style="color: red">{{ message }}</p>
+        {% endif %}
+
+    </form>
+
+</div>
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<title>Quiz</title>
+
+<body>
+
+    <!-- Main header to display Quiz name -->
+    <h1>Quiz 1:{{name}}</h1>
+    <h1>Attempt {{attemptNum}}</h1>
+    <!-- Check if user can take the quiz -->
+    {% if permission == False %}
+        <h1>You are not allowed to take this quiz</h1>
+    {% else %}
+    <!-- Display Quiz quesiton and Quiz choices section -->
+    <div>
+        <form method="POST" action="done.html" >
+
+            <!-- print out the questions -->
+            {%for q in questions%}
+                <p>{{loop.index}}. {{q[0]}}</p>
+                {% set outer_loop = loop.index %}
+
+                <!-- print out the 4 options for each question -->
+                {% for choice in choiceList[loop.index-1] %}
+                        {% for option in choice%}
+                            {% set name = ["choice", outer_loop]|join() %}
+                            {% if oldResponse|length > 0 %}
+                                {% if oldResponse[outer_loop-1] == choice %}
+                                    <input type= "radio" name= '{{name}}' value= {{option}} checked> {{option}}<br>
+                                {% else %}
+                                    <input type= "radio" name= '{{name}}' value= {{option}}> {{option}}<br>
+                                {% endif %}
+                            {% else %}
+                                <input type= "radio" name= '{{name}}' value= {{option}}> {{option}}<br>
+                            {% endif %}
+                        {% endfor %}
+                    <!-- If there is a former stopped attempt, mark the selcted answers so student can continue from his attempt -->
+                   
+                {% endfor %}
+
+            {% endfor %}
+            
+            <br>
+            <!-- When submit button is clicked send all radio-input values to done.html route -->
+            <input type="submit" name="button" value="Submit" />
+
+            <!-- When stop button is clicked send all radio-input values to done.html route -->
+            <input type="submit" name="button" value="Stop"  />
+        </form>
+
+        <br>
+        <br>
+        <p>Present Attempt: {{newAttempt}}</p>
+        
+    </div>
+    {% endif %}
+
+    
+    
+    
+</body>
+
+</html>
