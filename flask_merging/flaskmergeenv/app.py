@@ -87,8 +87,9 @@ def stu_login():
 
     if request.method == 'POST':
 
-
+        global glob_user
         username = request.form.get('username')
+        glob_user = username
         password = request.form.get('password')
 
 
@@ -206,7 +207,7 @@ def quiz():
 def display_quiz():
     #Check to see if there is a present incomplete quiz by this student.
     global activeQuiz
-    studentName = request.form.get('username')
+    studentName = glob_user
     quizName = request.form.get('quiz')
     activeQuiz = TakeQuiz(studentName,quizName)
     quizContent = activeQuiz.getQuizContent()

@@ -54,6 +54,7 @@ class TakeQuiz:
             username -  person taken the quiz
             quizName - Name of the quiz selected
         """
+        print(username)
         self._username = username
         self._selectTime = datetime.datetime.now()
         self._foundQuiz = TakeQuiz.persistStorage.getQuiz(quizName)
@@ -70,16 +71,32 @@ class TakeQuiz:
         has not exceeded max attempts for quiz
         and quiz end date has not exceded.
         """
+        print(0)
+        print("Username")
+        print(self._username)
+        print("Access List")
+        print(self._foundQuiz.accessList)
+        print(" Current Attempt Number")
+        print(self.numberOfAttempts())
+        print(" Get Attempts")
+        print(self._foundQuiz.getAttempts())
+        print("Select (Start?) Time")
+        print(self._selectTime)
+        print("End Time")
+        print(self._foundQuiz.getEndTime())
         exceededDate = False
         exceededAttempt = False
         permitted = False
         if self._username in self._foundQuiz.accessList:
+            print(1)
             permitted = True
         
         if(self.numberOfAttempts() >= self._foundQuiz.getAttempts() and TakeQuiz.studentsQA[self._username][self._foundQuiz.getQuizName()][-1].getComplete() == True):
-           exceededAttempt = True
+            print(2)
+            exceededAttempt = True
 
         if(self._selectTime > self._foundQuiz.getEndTime()):
+            print(3)
             exceededDate = True
 
         if(exceededDate == False and  exceededAttempt == False and permitted):
