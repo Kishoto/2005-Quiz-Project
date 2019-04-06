@@ -15,7 +15,8 @@
         {%for name in quizNames%}
             <!-- {% set page = ["quiz", loop.index, ".html"]|join()  %} -->
             <!-- <p>Quiz {{loop.index}} : <a href="quiz.html" id="{{name}}"> {{name}} </a> </p> -->
-            <input type= "radio" name= '{{name}}' value= {{choice}}> Quiz {{loop.index}}: {{choice}}<br>
+            <input type= "radio" name= 'quiz' value="{{name}}"> Quiz {{loop.index}}: {{name}}<br>
+            <input type="submit" name="button" value="Take Quiz"> 
         {% endfor %}
     </form>
     
