@@ -225,7 +225,7 @@ def display_quiz():
     newAttempt = activeQuiz._presentAttempt
     #
     
-    incompleteQuiz = TakeQuiz.resumeQuiz("James","Process Model")
+    incompleteQuiz = TakeQuiz.resumeQuiz(studentName,quizName)
     oldResponse = []
     if incompleteQuiz is not None:
         oldResponse = incompleteQuiz.getResponse()
@@ -248,7 +248,7 @@ def display_done():
             finished = True
         elif action == 'Stop':
             activeQuiz.stopQuiz()
-        jAttempts = TakeQuiz.studentsQA["James"]["Process Model"]
+        jAttempts = TakeQuiz.studentsQA[studentName][quizName]
         return render_template('done.html', jAttempts=jAttempts, finished=finished)
 
 
