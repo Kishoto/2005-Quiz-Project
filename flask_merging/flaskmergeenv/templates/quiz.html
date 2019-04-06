@@ -23,9 +23,9 @@
                 <!-- print out the 4 options for each question -->
                 {% for choice in choiceList[loop.index-1] %}
                     {% set name = ["choice", outer_loop]|join() %}
+                        {% for option in choice%}
 
-                    <!-- If there is a former stopped attempt, mark the selcted answers so student can continue from his attempt -->
-                    {% if oldResponse|length > 0 %}
+                        {% if oldResponse|length > 0 %}
                         {% if oldResponse[outer_loop-1] == choice %}
                             <input type= "radio" name= '{{name}}' value= {{choice}} checked> {{choice}}<br>
                         {% else %}
@@ -34,7 +34,9 @@
                     {% else %}
                         <input type= "radio" name= '{{name}}' value= {{choice}}> {{choice}}<br>
                     {% endif %}
-                
+                        {% end for %}
+                    <!-- If there is a former stopped attempt, mark the selcted answers so student can continue from his attempt -->
+                   
                 {% endfor %}
 
             {% endfor %}

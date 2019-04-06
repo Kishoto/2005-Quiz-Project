@@ -1,6 +1,7 @@
 
 from flask import Flask, render_template, request, flash, redirect, url_for
 from login import *
+from datetime import datetime
 from CreateQuiz import *
 from Take_Quiz import *
 
@@ -12,7 +13,6 @@ instructorAccount = Login.loginStorage.getInstructorAccount()
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
-
 
 @app.route('/', methods=['GET', 'POST'])
 def base():
@@ -86,8 +86,9 @@ def stu_login():
 
     if request.method == 'POST':
 
-
+        global glob_user
         username = request.form.get('username')
+        glob_user = username
         password = request.form.get('password')
 
 
@@ -148,7 +149,10 @@ def instanceQuiz():
     attempts = request.form.get('attempts')
     stime = request.form.get('stime')
     etime = request.form.get('etime')
-    quizObj = CreateQuiz(quizname,attempts,stime,etime)
+    startTime = datetime.datetime.strptime(stime,'%Y-%m-%d')
+    endTime = datetime.datetime.strptime(etime,'%Y-%m-%d')
+
+    quizObj = CreateQuiz(quizname,int(attempts),startTime,endTime)
 
     return render_template('restrict_access.html')
 
@@ -202,9 +206,11 @@ def quiz():
 def display_quiz():
     #Check to see if there is a present incomplete quiz by this student.
     global activeQuiz
-    studentName = request.form.get('username')
-    quizName = 
-    activeQuiz = TakeQuiz("James","Process Model")
+    global studentName
+    studentName = glob_user
+    global quizName
+    quizName = request.form.get('quiz')
+    activeQuiz = TakeQuiz(studentName,quizName)
     quizContent = activeQuiz.getQuizContent()
 
     #Setting the attempt display number
@@ -213,14 +219,14 @@ def display_quiz():
         attemptNum = 1
     elif activeQuiz.numberOfAttempts() == activeQuiz.getFoundQuiz().getAttempts():
         attemptNum = activeQuiz.numberOfAttempts()
-    elif activeQuiz.numberOfAttempts() > 0 and TakeQuiz.studentsQA["James"]["Process Model"][-1].getComplete() == True:
+    elif activeQuiz.numberOfAttempts() > 0 and TakeQuiz.studentsQA[studentName][quizName][-1].getComplete() == True:
         attemptNum = activeQuiz.numberOfAttempts() + 1
         
     #For Debugging
     newAttempt = activeQuiz._presentAttempt
     #
     
-    incompleteQuiz = TakeQuiz.resumeQuiz("James","Process Model")
+    incompleteQuiz = TakeQuiz.resumeQuiz(studentName,quizName)
     oldResponse = []
     if incompleteQuiz is not None:
         oldResponse = incompleteQuiz.getResponse()
@@ -243,10 +249,8 @@ def display_done():
             finished = True
         elif action == 'Stop':
             activeQuiz.stopQuiz()
-        jAttempts = TakeQuiz.studentsQA["James"]["Process Model"]
+        jAttempts = TakeQuiz.studentsQA[studentName][quizName]
         return render_template('done.html', jAttempts=jAttempts, finished=finished)
-
-
 
 
 
