@@ -114,8 +114,8 @@ def instructor_login():
 
     if request.method == 'POST':
 
-        session['username'] = request.form.get('username')
-        session['password'] = request.form.get('password')
+        session['username'] = request.form['username']
+        session['password'] = request.form['password']
 
         if not all([session['username'],session['password']]):
             flash('imcomplete')
