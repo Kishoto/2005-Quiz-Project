@@ -163,7 +163,7 @@ class QuizResult:
         """
 
         
-        size = float(len(QR_PER.classList))
+        size = float(len(self.QR_PER.classList))
         ###size = float(2)  #A temp variable to work with the sample data. 
         part = float(0)
         stunames = {}
@@ -384,8 +384,8 @@ class QuizResult:
         return out_list
 
         
-##test = QuizResult()
-##test.add_quiz_attempts()
-##test.get_grades()
-##print(test.stu_quiz_detailed('Fume','Quiz1'))
+test = QuizResult()
+test.add_quiz_attempts()
+test.get_grades()
+print(test.ins_class_hist('Quiz1'))
         

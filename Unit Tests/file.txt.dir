@@ -1,0 +1,5 @@
+'Quiz', (0, 6)
+'studentAttempt', (512, 6)
+'gradedAttempts', (1024, 6)
+'instructor', (2560, 6)
+'student', (3072, 6)
