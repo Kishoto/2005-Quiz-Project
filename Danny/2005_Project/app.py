@@ -48,7 +48,7 @@ def insRegister():
         session['username'] = request.form['username']
         session['password'] = request.form['password']
         session['confirm'] = request.form['confirm']
-        # Login.loginStorage.addInstructorAccount(username, password)
+
 
         if session['username'] is not None and session['password'] == session['confirm']:
             Login.loginStorage.addInstructorAccount(session['username'], session['password'])
@@ -65,7 +65,7 @@ def stuRegister():
         session['username'] = request.form['username']
         session['password'] = request.form['password']
         session['confirm'] = request.form['confirm']
-        # Login.loginStorage.addStudentAccount(username,password)
+
 
         if session['username'] is not None and session['password'] == session['confirm']:
             Login.loginStorage.addStudentAccount(session['username'], session['password'])
@@ -135,7 +135,7 @@ def instructor_login():
 
 @app.route('/logout')
 def logout():
-    session.clear
+    session.clear()
     return redirect(url_for('base'))
 
 @app.route('/takequiz')
