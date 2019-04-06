@@ -53,14 +53,11 @@ class QuizResult:
     #Note: The data below was used for demonstrative purposes, as was the Quiz Attempt
     #module. The persist interactions are present but have been commented out with a triple pound
     #sign to indicate where they occur. 
-    attempt1 = QuizAttempt(1)
-    attempt2 = QuizAttempt(2)
     
     ###sample_quiz_dict = {'Fume' : { 'Quiz1': [attempt1, attempt2], 'Quiz2': [attempt1]}, 'Vlad' : { 'Quiz1': [attempt1, attempt2], 'Quiz2': [attempt1]}}
 
 
     QR_PER = storage
-    QR_PER.addAllStudentQA({'Fume' : { 'Quiz1': [attempt1, attempt2], 'Quiz2': [attempt1]}, 'Vlad' : { 'Quiz1': [attempt1, attempt2], 'Quiz2': [attempt1]}})
 
     sample_quiz_dict = storage.getStudentQA()
 
@@ -383,9 +380,4 @@ class QuizResult:
                     namehold = stunames[studentname][i][0]
         return out_list
 
-        
-test = QuizResult()
-test.add_quiz_attempts()
-test.get_grades()
-print(test.ins_class_hist('Quiz1'))
-        
+    
